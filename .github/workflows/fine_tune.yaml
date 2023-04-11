@@ -38,5 +38,4 @@ jobs:
         git config credential.helper "store --file=.git/credentials"
         git add fine_tuned_data.txt
         git commit -m "Update fine-tuned data"
-        git push origin master
-
+        git push origin master || echo "Ignoring error: $?"

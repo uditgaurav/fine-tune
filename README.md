@@ -36,7 +36,10 @@ __Fine-tune the model:__
 
 - Provide the prompts and completions in CSV format in [prompts_and_completions.csv](./prompts_and_completions.csv) file.
 
-__Evaluate the fine-tuned model:__ Once the fine-tuning is complete, you can evaluate the performance of the fine-tuned model on your evaluation dataset using the provided evaluation scripts. You can compare the results with the pre-trained model to assess the improvement in performance.
+__Evaluate the fine-tuned model:__ 
+- Once the fine-tuning is complete, you can evaluate the performance of the fine-tuned model on your evaluation dataset using the provided evaluation scripts. You can compare the results with the pre-trained model to assess the improvement in performance.
+
+- The sample output is stored in [fine_tuned_data.txt](./fine_tuned_data.txt) file.
 
 ### Contributing
 
