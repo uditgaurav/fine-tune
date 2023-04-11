@@ -8,13 +8,11 @@ on:
 jobs:
   fine-tune:
     runs-on: ubuntu-latest
+    env: ${{ secrets.MY_SECRET }}
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-
-    - name: Set environment variable
-      run: echo "MY_ENV_VAR=${{ secrets.MY_SECRET }}" >> $GITHUB_ENV
 
     - name: Install Python
       run: |

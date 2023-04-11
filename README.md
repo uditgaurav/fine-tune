@@ -31,13 +31,9 @@ pip install -r requirements.txt
 
 __Prepare your data:__ Fine-tuning requires a labeled dataset for your specific task. You need to preprocess your data and format it according to the input requirements of the pre-trained language model you want to fine-tune.
 
-__Fine-tune the model:__ Use the provided scripts to fine-tune the pre-trained language model on your data. The scripts include options for hyperparameter tuning, model architecture selection, and other customization options.
+__Fine-tune the model:__ Use the provided scripts [fine_tune.py](./scripts/fine_tune.py) to fine-tune the pre-trained language model on your data. The scripts include options for hyperparameter tuning, model architecture selection, and other customization options.
 
 __Evaluate the fine-tuned model:__ Once the fine-tuning is complete, you can evaluate the performance of the fine-tuned model on your evaluation dataset using the provided evaluation scripts. You can compare the results with the pre-trained model to assess the improvement in performance.
-
-__Deploy the fine-tuned model:__ After fine-tuning and evaluating the model, you can deploy it in your production environment for inference or use it for other NLP tasks as per your requirements.
-
-For detailed instructions and examples, please refer to the documentation provided in the repository.
 
 ### Contributing
 
