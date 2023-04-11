@@ -8,11 +8,13 @@ on:
 jobs:
   fine-tune:
     runs-on: ubuntu-latest
-    env: ${{ secrets.MY_SECRET }}
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+
+    - name: Set environment variable
+      run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
 
     - name: Install Python
       run: |
@@ -26,7 +28,7 @@ jobs:
 
 
     - name: Run fine-tune script
-      run: python3 scripts/fine_tune.py
+      run: python3 fine_tune.py
 
     - name: Commit and push changes
       run: |
