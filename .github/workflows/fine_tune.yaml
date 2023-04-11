@@ -28,7 +28,7 @@ jobs:
 
 
     - name: Run fine-tune script
-      run: python3 fine_tune.py
+      run: python3 scripts/fine_tune.py
 
     - name: Commit and push changes
       run: |
