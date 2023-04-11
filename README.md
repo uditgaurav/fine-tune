@@ -3,22 +3,18 @@
 Welcome to the Fine-Tune repository! This repository contains code for fine-tuning pre-trained language models using the Hugging Face Transformers library. Fine-tuning allows you to train a pre-trained language model on your specific task or dataset, which can lead to improved performance and better results.
 
 ### Table of Contents
-- About
 - Installation
 - Usage
 - Contributing
 - License
 
-
-### About
-
-The Fine-Tune repository provides a streamlined way to fine-tune pre-trained language models from the Hugging Face Transformers library. The repository includes scripts and examples for fine-tuning various popular language models such as BERT, GPT-2, RoBERTa, and more. Fine-tuning is a common technique used in natural language processing (NLP) tasks such as text classification, named entity recognition, sentiment analysis, and text generation, among others.
-
 ### Installation
+
 To use Fine-Tune, you need to have Python 3.6 or higher installed on your system. You can install the required dependencies using the following command:
 
-### Copy code
+```
 pip install -r requirements.txt
+```
 This will install the necessary Python packages such as PyTorch, Transformers, and other dependencies required for fine-tuning language models.
 
 ### Usage
