@@ -32,12 +32,10 @@ jobs:
 
     - name: Commit and push changes
       run: |
-        export GH_TOKEN=${{ secrets.PAT_TOKEN }}
         git config --global user.name "Udit Gaurav"
         git config --global user.email "uditgaurav@gmail.com"
         git config credential.helper "store --file=.git/credentials"
         git status
-        git branch
         git add . || echo "Ignoring error: $?"
         git commit -m "Update fine-tuned data" || echo "Ignoring error: $?"
-        git push origin master || echo "Ignoring error: $?"
+        git push https://${{ secrets.PAT_TOKEN }}@github.com/uditgaurav/fine-tune.git HEAD:master || echo "Ignoring error: $?"
