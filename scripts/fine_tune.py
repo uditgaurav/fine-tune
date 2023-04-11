@@ -6,7 +6,7 @@ import pandas as pd
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 # Load CSV data into a pandas DataFrame
-df = pd.read_csv('prompts_and_completions.csv')
+df = pd.read_csv('../prompts_and_completions.csv')
 
 # Access the prompt and completion columns
 prompts = df['prompt']
@@ -32,7 +32,7 @@ for i in range(len(prompts)):
 
     # Process and save the fine-tuned data
     # You can save the fine-tuned data to a file, upload it to a storage service, or use it as needed in your workflow
-    with open("fine_tuned_data.txt", "w") as f:
+    with open("../fine_tuned_data.txt", "w") as f:
         f.write(fine_tuned_data)
 
     print("")
