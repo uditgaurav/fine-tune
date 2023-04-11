@@ -28,7 +28,7 @@ for i in range(len(prompts)):
       stop=None
     )
     # Extract the generated fine-tuned data
-    fine_tuned_data = response['choices'][i]['text']
+    fine_tuned_data = response['choices'][0]['text']
 
     # Process and save the fine-tuned data
     # You can save the fine-tuned data to a file, upload it to a storage service, or use it as needed in your workflow

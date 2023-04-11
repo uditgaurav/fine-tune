@@ -36,6 +36,7 @@ jobs:
         git config --global user.name "Udit Gaurav"
         git config --global user.email "uditgaurav@gmail.com"
         git config credential.helper "store --file=.git/credentials"
-        git add fine_tuned_data.txt
-        git commit -m "Update fine-tuned data"
+        git status
+        git add fine_tuned_data.txt || echo "Ignoring error: $?"
+        git commit -m "Update fine-tuned data" || echo "Ignoring error: $?"
         git push origin master || echo "Ignoring error: $?"
