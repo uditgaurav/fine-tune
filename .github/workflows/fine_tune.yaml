@@ -32,8 +32,10 @@ jobs:
 
     - name: Commit and push changes
       run: |
-        git config --global user.name "Your Name"
-        git config --global user.email "you@example.com"
+        export GH_TOKEN=${{ secrets.PAT_TOKEN }}
+        git config --global user.name "Udit Gaurav"
+        git config --global user.email "uditgaurav@gmail.com"
+        git config credential.helper "store --file=.git/credentials"
         git add fine_tuned_data.txt
         git commit -m "Update fine-tuned data"
         git push origin master
