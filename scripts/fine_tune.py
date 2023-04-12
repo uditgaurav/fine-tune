@@ -1,4 +1,5 @@
 import openai
+import torch
 import os
 import pandas as pd
 
@@ -20,12 +21,12 @@ for i in range(len(prompts)):
     print(f"Fine-tuning for prompt: {prompt}")
     # Fine-tune the model
     response = openai.Completion.create(
-      engine="text-davinci-002",
-      prompt=prompt,
-      max_tokens=1024,
-      temperature=0.5,
-      n=1,
-      stop=None
+        engine="text-davinci-002",
+        prompt=prompt,
+        max_tokens=1024,
+        temperature=0.5,
+        n=1,
+        stop=None
     )
     # Extract the generated fine-tuned data
     fine_tuned_data = response['choices'][0]['text']
@@ -35,9 +36,13 @@ for i in range(len(prompts)):
     with open("fine_tuned_data.txt", "w") as f:
         f.write(fine_tuned_data)
 
+    # Serialize the model and save it to a file
+    torch.save(response['model'], "model.pth")
+
     print("")
     print(f"Fine-tuning completed for prompt: {prompt}")
     print(f"Generated fine-tuned data: {fine_tuned_data}")
     print("")
 
 print("Fine-tuning completed successfully!")
+print("Trained model saved to: model.pth")
