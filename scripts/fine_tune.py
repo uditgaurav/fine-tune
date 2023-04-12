@@ -1,5 +1,4 @@
 import openai
-import torch
 import os
 import pandas as pd
 
@@ -12,6 +11,9 @@ df = pd.read_csv('prompts_and_completions.csv')
 # Access the prompt and completion columns
 prompts = df['prompt']
 completions = df['completion']
+
+# Define a list to store fine-tuned data
+fine_tuned_data_list = []
 
 # Iterate through the prompts and completions
 for i in range(len(prompts)):
@@ -28,21 +30,22 @@ for i in range(len(prompts)):
         n=1,
         stop=None
     )
+
     # Extract the generated fine-tuned data
     fine_tuned_data = response['choices'][0]['text']
 
     # Process and save the fine-tuned data
     # You can save the fine-tuned data to a file, upload it to a storage service, or use it as needed in your workflow
-    with open("fine_tuned_data.txt", "w") as f:
-        f.write(fine_tuned_data)
-
-    # Serialize the model and save it to a file
-    torch.save(response['model'], "model.pth")
+    fine_tuned_data_list.append(fine_tuned_data)
 
     print("")
     print(f"Fine-tuning completed for prompt: {prompt}")
     print(f"Generated fine-tuned data: {fine_tuned_data}")
     print("")
+
+# Save the fine-tuned data to a file
+with open("fine_tuned_data.txt", "w") as f:
+    f.write("\n".join(fine_tuned_data_list))
 
 print("Fine-tuning completed successfully!")
 print("Trained model saved to: model.pth")
