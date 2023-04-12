@@ -1,3 +1,4 @@
+from fuzzywuzzy import process
 import openai
 import os
 import pandas as pd
@@ -19,10 +20,26 @@ with open('trained_models.pkl', 'rb') as f:
 
 # Define a function to generate text using trained models
 def generate_text(prompt):
-    if prompt in trained_models:
-        trained_model = trained_models[prompt]
+    closest_match = process.extractOne(prompt, trained_models.keys())
+    closest_prompt = closest_match[0]
+    similarity = closest_match[1]
+    if similarity > 80:  # Set a similarity threshold for matching prompts
+        trained_model = trained_models[closest_prompt]
         response = openai.Completion.create(
             engine="text-davinci-001",
+            prompt=closest_prompt,
+            max_tokens=1024,
+            temperature=0.5,
+            n=1,
+            stop=None
+        )
+        generated_text = response['choices'][0]['text']
+    else:
+        url = "https://developer.harness.io/docs/chaos-engineering/"
+        prompt = f"Read the following document from {url} and answer the following question:\n\n{prompt}\n\nAnswer:"
+
+        response = openai.Completion.create(
+            engine="text-davinci-002",
             prompt=prompt,
             max_tokens=1024,
             temperature=0.5,
@@ -30,11 +47,9 @@ def generate_text(prompt):
             stop=None
         )
         generated_text = response['choices'][0]['text']
-        return generated_text
-    else:
-        return f"No trained model found for prompt: {prompt}"
+    return generated_text
 
-# Example usage of the generate_text() function
+
 prompt = input("Enter your question: ")
 generated_text = generate_text(prompt)
 print("Generated text:", generated_text)

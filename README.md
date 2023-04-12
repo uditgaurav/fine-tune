@@ -2,54 +2,50 @@
 
 Welcome to the Fine-Tune repository! This repository contains code for fine-tuning pre-trained language models using the Hugging Face Transformers library. Fine-tuning allows you to train a pre-trained language model on your specific task or dataset, which can lead to improved performance and better results.
 
-### Table of Contents
-- Installation
-- Usage
-- Contributing
-- License
-
-### Installation
-
-To use Fine-Tune, you need to have Python 3.6 or higher installed on your system. You can install the required dependencies using the following command:
-
-```
-pip install -r requirements.txt
-```
-This will install the necessary Python packages such as PyTorch, Transformers, and other dependencies required for fine-tuning language models.
-
 ### Usage
-The Fine-Tune repository provides easy-to-use scripts for fine-tuning pre-trained language models on your specific task or dataset. Here are the general steps to use Fine-Tune:
+- The Fine-Tune repository provides easy-to-use scripts for fine-tuning pre-trained language models on your specific task or dataset. Here are the general steps to use Fine-Tune:
 
-- Clone the repository:
+#### Clone the repository:
 ```bash
 git clone https://github.com/uditgaurav/fine-tune.git
 ```
-- Install the required dependencies:
+#### Install the required dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
-__Prepare your data:__ Fine-tuning requires a labeled dataset for your specific task. You need to preprocess your data and format it according to the input requirements of the pre-trained language model you want to fine-tune.
+### Ask a question
+- To ask a question you first need to have  `OPENAI_API_KEY`
 
-__Fine-tune the model:__ 
-- Use the provided scripts [fine_tune.py](./scripts/fine_tune.py) to fine-tune the pre-trained language model on your data. The scripts include options for hyperparameter tuning, model architecture selection, and other customization options.
+```bash
+export OPENAI_API_KEY=ACBDEFGHIJKLMNOPQRSTUVWXYZ
+```
 
-- Provide the prompts and completions in CSV format in [prompts_and_completions.csv](./prompts_and_completions.csv) file.
+- Now run `scripts/fine_tune.py` as shown below.
 
-![image](https://user-images.githubusercontent.com/35391335/231134760-1c2b6d10-a4e1-4097-99c5-1b47f2111444.png)
+```bash
+$> python3 scripts/fine_tune.py
+Enter your question: why chaos engineering required?
 
-__Evaluate the fine-tuned model:__ 
-- Once the fine-tuning is complete, you can evaluate the performance of the fine-tuned model on your evaluation dataset using the provided evaluation scripts. You can compare the results with the pre-trained model to assess the improvement in performance.
 
-- The sample output is stored in [fine_tuned_data.txt](./fine_tuned_data.txt) file.
+Chaos engineering is required in order to ensure that systems are resilient to unexpected events. By deliberately introducing chaos into a system, engineers can identify weaknesses and potential points of failure. This helps to ensure that systems are able to withstand real-world conditions and can maintain stability even in the face of unexpected challenges.
+```
 
-![image](https://user-images.githubusercontent.com/35391335/231134459-963c9800-c9b2-4f9f-bddb-0ead61e5bd67.png)
+#### What is the function or purpose of the script
 
-### Contributing
+This script is a Python code that uses the OpenAI API to generate text based on prompts and completions stored in a CSV file. The main steps in the script are as follows:
 
-Contributions to the Fine-Tune repository are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request. Your contributions will help improve the functionality and usability of the repository.
+1. Import necessary libraries: The script imports the following libraries: openai, os, pandas, pickle, re, and fuzzywuzzy.
 
-### License
-The Fine-Tune repository is open source and is licensed under the MIT License. You are free to use, modify, and distribute the code for personal and commercial purposes, subject to the terms and conditions of the license. Please refer to the license file for more details.
+2. Set OpenAI API key: The script sets the API key for OpenAI by retrieving it from the environment variable OPENAI_API_KEY.
 
-Thank you for using Fine-Tune! Happy fine-tuning of language models!
+3. Load CSV data: The script loads data from a CSV file (prompts_and_completions.csv) into a pandas DataFrame (df), which contains prompts and completions.
+
+4. Train and fine-tune models: The script iterates through the prompts and completions, and for each prompt, it checks if a trained model is already available. If not, it fine-tunes the model using the OpenAI API (openai.Completion.create()) with the specified parameters such as engine, prompt, max_tokens, temperature, n, and stop. The generated fine-tuned data is then processed and saved to a dictionary (trained_models) with the prompt as the key and the formatted response as the value.
+
+5. Save trained models: The trained models are saved to a pickle file (trained_models.pkl) for future use.
+
+6. Define text generation function: The script defines a function generate_text(prompt) that takes a prompt as input and generates text using the trained models. It uses fuzzy string matching (process.extractOne()) to find the closest match for the input prompt from the trained models based on similarity score. If the similarity score is above a certain threshold (80 in this case), it uses the corresponding trained model to generate text using the OpenAI API. Otherwise, it generates text by appending the prompt to a URL and using it as a new prompt for the OpenAI API.
+
+7. Take user input and generate text: The script takes user input for a question prompt, calls the generate_text() function to generate text based on the input prompt, and then prints the generated text to the console.

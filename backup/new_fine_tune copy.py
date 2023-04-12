@@ -2,6 +2,7 @@ import openai
 import os
 import pandas as pd
 import pickle
+import re
 
 # Set your OpenAI API key
 openai.api_key = os.environ.get('OPENAI_API_KEY')
@@ -20,6 +21,9 @@ trained_models = {}
 if os.path.exists("trained_models.pkl"):
     with open("trained_models.pkl", "rb") as f:
         trained_models = pickle.load(f)
+
+# Regular expression pattern to extract yes/no answers
+yes_no_pattern = r"(?i)\b(?:yes|no)\b"
 
 # Iterate through the prompts and completions
 for i in range(len(prompts)):
@@ -48,7 +52,14 @@ for i in range(len(prompts)):
 
         # Process and save the fine-tuned data
         # You can save the fine-tuned data to a file, upload it to a storage service, or use it as needed in your workflow
-        trained_model = fine_tuned_data
+        
+        # Extract specific answers using regular expression
+        extracted_answer = re.findall(yes_no_pattern, fine_tuned_data)
+        
+        # Format response as yes/no
+        formatted_response = "Yes" if "yes" in extracted_answer else "No"
+        
+        trained_model = formatted_response + completion  # Append the completion to the formatted response
         trained_models[prompt] = trained_model
 
         print("")
